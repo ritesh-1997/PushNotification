@@ -1,0 +1,22 @@
+services:
+  mongodb:
+    image: mongo:latest  # Or you can just use the official MongoDB image directly
+    container_name: mongodb
+    ports:
+      - "27017:27017"  # Expose MongoDB on port 27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=examplepassword  # Set a root password (optional)
+      - MONGO_INITDB_DATABASE=mydatabase  # Optionally, set an initial database
+    volumes:
+      - mongodb_data:/data/db  # Persistent volume for MongoDB data (optional)
+    restart: always  # Ensure MongoDB restarts automatically if it crashes
+    networks:
+      - PushNotificationNetwork  # Connect to the network
+volumes:
+  mongodb_data:
+    driver: local  # Volume for MongoDB persistence
+networks:
+  PushNotificationNetwork:
+    driver: bridge
+  
